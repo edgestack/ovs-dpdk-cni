@@ -34,7 +34,7 @@ spec:
       initContainers:
       - name: ovs-dpdk-cni-plugin
         image: ${OVS_DPDK_CNI_PLUGIN_IMAGE_REPO}/${OVS_DPDK_CNI_PLUGIN_IMAGE_NAME}:${OVS_DPDK_CNI_PLUGIN_IMAGE_VERSION}
-        command: ['cp', '/ovs-dpdk', '/host${CNI_MOUNT_PATH}/ovs-dpdk']
+        command: ['cp', '/userspace', '/host${CNI_MOUNT_PATH}/userspace']
         imagePullPolicy: ${OVS_DPDK_CNI_PLUGIN_IMAGE_PULL_POLICY}
         securityContext:
           privileged: true
