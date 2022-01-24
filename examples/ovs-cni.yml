@@ -34,7 +34,7 @@ spec:
       initContainers:
       - name: ovs-dpdk-cni-plugin
         image: registry.gitlab.com/sonaproject/ovs-dpdk-cni-plugin:latest
-        command: ['cp', '/ovs-dpdk', '/host/opt/cni/bin/ovs-dpdk']
+        command: ['cp', '/userspace', '/host/opt/cni/bin/userspace']
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
