@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: ovs-cni-amd64
+  name: ovs-dpdk-cni-amd64
   namespace: ${NAMESPACE}
   labels:
     tier: node
-    app: ovs-cni
+    app: ovs-dpdk-cni
 spec:
   selector:
     matchLabels:
-      app: ovs-cni
+      app: ovs-dpdk-cni
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,9 +18,9 @@ spec:
     metadata:
       labels:
         tier: node
-        app: ovs-cni
+        app: ovs-dpdk-cni
       annotations:
-        description: OVS CNI allows users to attach their Pods/VMs to Open vSwitch bridges available on nodes
+        description: OVS-DPDK-CNI (Userspace-CNI) allows users to attach their Pods/VMs to Open vSwitch bridges available on nodes
     spec:
       serviceAccountName: ovs-cni-marker
       hostNetwork: true
@@ -32,10 +32,10 @@ spec:
         operator: Exists
         effect: NoSchedule
       initContainers:
-      - name: ovs-cni-plugin
-        image: ${OVS_CNI_PLUGIN_IMAGE_REPO}/${OVS_CNI_PLUGIN_IMAGE_NAME}:${OVS_CNI_PLUGIN_IMAGE_VERSION}
-        command: ['cp', '/ovs', '/host${CNI_MOUNT_PATH}/ovs']
-        imagePullPolicy: ${OVS_CNI_PLUGIN_IMAGE_PULL_POLICY}
+      - name: ovs-dpdk-cni-plugin
+        image: ${OVS_DPDK_CNI_PLUGIN_IMAGE_REPO}/${OVS_DPDK_CNI_PLUGIN_IMAGE_NAME}:${OVS_DPDK_CNI_PLUGIN_IMAGE_VERSION}
+        command: ['cp', '/ovs-dpdk', '/host${CNI_MOUNT_PATH}/ovs-dpdk']
+        imagePullPolicy: ${OVS_DPDK_CNI_PLUGIN_IMAGE_PULL_POLICY}
         securityContext:
           privileged: true
         resources:
